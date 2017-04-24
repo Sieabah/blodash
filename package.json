@@ -1,0 +1,25 @@
+{
+  "name": "blodash",
+  "version": "0.0.0",
+  "description": "At least it's better than lodash",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sieabah/blodash.git"
+  },
+  "keywords": [
+    "lodash"
+  ],
+  "author": "Chris Sidell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sieabah/blodash/issues"
+  },
+  "homepage": "https://github.com/Sieabah/blodash#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  }
+}
