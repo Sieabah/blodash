@@ -1,4 +1,4 @@
-const expor = require('lodash');
+const _ = require('lodash');
 
 function FalseIf(message, fileName, lineNumber){
     const instance = new Error(message, fileName, lineNumber);
@@ -23,31 +23,23 @@ if (Object.setPrototypeOf){
 } else {
     TooManyDots.__proto__ = Error;
 }
-const _get = expor.get;
 
-expor.get = function(obj, key, _default){
-    if(key.split('.').length > 1)
-        throw new TooManyDots();
-
-    return _get(obj, key, _default);
-}
-
-expor.do = function(func){
+_.do = function(func){
     return func();
 }
 
-expor.ififfy = function(boolean){
+_.ififfy = function(boolean){
     return function(){ 
         return boolean;
     }
 }
 
-expor.if = function(boolean, silent){
+_.if = function(boolean, silent){
     if(silent == undefined)
         silent = true;
 
     if(boolean())
-        return { then: expor.do };
+        return { then: _.do };
     
     if(silent)
         return { then: function(){} };
@@ -55,20 +47,39 @@ expor.if = function(boolean, silent){
     throw new FalseIf();
 }
 
-expor._else = function(boolean){
+_._else = function(boolean){
     try {
         return boolean();
     } catch(e){
-        return expor.if(expor.ififfy(e instanceof FalseIf)).then(function(){ return undefined; });
+        return _.if(_.ififfy(e instanceof FalseIf)).then(function(){ return undefined; });
         
         throw e;
     }
 }
 
-expor.unless = function(boolean){ 
-    return expor.if(function(){
+_.unless = function(boolean){ 
+    return _.if(function(){
         return boolean() === false;
     });
 }
 
-module.exports = expor;
+_.true = true;
+_.false = !_.true;
+_.undefined = undefined;
+_.null = null;
+
+function _get(obj, key, _default){
+    if(typeof obj == 'string')
+        return _get(_, obj, key);
+
+    if(key.split('.').length > 1)
+        throw new TooManyDots();
+
+    let ret = {};
+    ret[key] = _.get(obj, key, _default);
+    return ret;
+}
+
+module.exports = {
+    get: _get
+}
