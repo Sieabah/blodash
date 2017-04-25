@@ -1,7 +1,7 @@
 {
   "name": "blodash",
   "version": "0.0.4",
-  "description": "At least it's better than lodash",
+  "description": "Lodash didn't blow hard enough",
   "main": "index.js",
   "scripts": {
     "test": "mocha test.js"
