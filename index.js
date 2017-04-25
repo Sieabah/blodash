@@ -12,6 +12,26 @@ if (Object.setPrototypeOf){
     FalseIf.__proto__ = Error;
 }
 
+function TooManyDots(message, fileName, lineNumber){
+    const instance = new Error(message, fileName, lineNumber);
+    Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+    return instance;
+}
+TooManyDots.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
+if (Object.setPrototypeOf){
+    Object.setPrototypeOf(TooManyDots, Error);
+} else {
+    TooManyDots.__proto__ = Error;
+}
+const _get = expor.get;
+
+expor.get = function(obj, key, _default){
+    if(key.split('.').length > 1)
+        throw new TooManyDots();
+
+    return _get(obj, key, _default);
+}
+
 expor.do = function(func){
     return func();
 }
