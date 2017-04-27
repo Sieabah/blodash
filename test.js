@@ -1,29 +1,19 @@
-const b_ = require('./index.js'),
+var b_ = require('./index.js'),
     should = require('should');
 
 describe('Tests', function(){
-    it('Should ififfy', function(){
-        should(b_.get('ififfy').ififfy(b_.get('true').true)()).be.true();
-        should(b_.get('ififfy').ififfy(b_.get('false').false)()).be.false();
-    });
 
     it('Should Do If', function(done){
-        b_.get('if').if(b_.get('ififfy').ififfy(b_.get('true').true)).then(function(){
+        b_.if(b_.true, function(){
             done();
         });
     });
 
-    it('Should Do Unless', function(done){
-        b_.get('unless').unless(b_.get('ififfy').ififfy(b_.get('false').false)).then(function(){
-            done();
-        });
-    });
+    it('Should be completely asynchronous', function(done){
+        var sync = b_.false;
 
-    it('Should be completely synchronous', function(done){
-        let sync = b_.get('false').false;
-
-        b_.get('if').if(b_.get('ififfy').ififfy(b_.get('true').true)).then(function(){
-            sync = b_.get('true').true;
+        b_.if(b_.true, function(){
+            sync = b_.true;
         });
 
         if(sync)
@@ -33,27 +23,26 @@ describe('Tests', function(){
     });
 
     it('If Should not explode if Falsey value if given', function(){
-        b_.get('if').if(b_.get('ififfy').ififfy(b_.get('false').false));
+        b_.if(b_.false, b_.false);
+        b_.if(b_.false, b_.true);
     });
 
     it('If Should explode if Falsey value if given and silent is false', function(){
-        should.throws(function(){b_.get('if').if(b_.get('ififfy').ififfy(b_.get('false').false), b_.get('false').false)});
+        should.throws(function(){b_.if(b_.false)});
     });
 
     it('Should catch if silently', function(done){
-        b_.get('if').if(function(){
-            return b_.get('_else')._else(function(){
-                b_.get('if').if(b_.get('ififfy').ififfy(b_.get('false').false)).then(function(){
+        b_.if(function(){
+            return b_.else(function(){
+                b_.if(b_.false, function(){
                     done(new Error("This shouldn't be called"));
-                });
-            }) === b_.get('undefined').undefined;
-        }).then(function(){
-            done();
-        });
+                })
+            }) === b_.undefined;
+        }, function(){ done(); });
     });
 
     it('Should return value', function(){
-        let value = b_.get('if').if(b_.get('ififfy').ififfy(b_.get('true').true)).then(function(){
+        var value = b_.if(b_.true, function(){
             return 'value';
         });
 
@@ -61,12 +50,38 @@ describe('Tests', function(){
     });
 
     it('Should get correctly', function(){
-        should(b_.get({one: 1}, 'one').one).be.equal(1);
+        should(b_.get({one: 1}, 'one')).be.equal(1);
     });
 
     it('Should not allow deep gets', function(){
         should.throws(function(){
             b_.get({one: { two: 2 }}, 'one.two')
+        });
+    });
+
+    function safeif(value, cb){
+        b_.else(function() {
+            b_.if(function() {
+                return b_.else(function() {
+                        b_.if(value, function() {
+                            cb(b_.null);
+                        });
+                    }) === undefined;
+            });
+
+            cb(b_.true);
+        });
+    }
+
+    it('Positive if should return null', function(done){
+        safeif(true, function(value){
+            return value === b_.null ? done() : done(new Error('Positive i value: '+value))
+        });
+    });
+
+    it('Negative if should return true', function(done){
+        safeif(false, function(value){
+            return value === b_.true ? done() : done(new Error('Incorrect value: '+value))
         });
     });
 });
