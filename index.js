@@ -30,12 +30,6 @@ _.else = function(exec, cb){
     }
 };
 
-var switcher = function(_case, cb){
-    var cases = [];
-    cases.push([_case, cb]);
-
-};
-
 _.switch = function(option, cb){
     var cases = [];
 
