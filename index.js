@@ -18,15 +18,13 @@ _.else = function(exec, cb){
         var data = exec();
         return data === undefined ? false : data;
     } catch(e){
-        if(_.if(
-            e instanceof E.FalseIf,
-            function(){
-                return _.true;
-            }
-        ))
+        try {
+            _.if(e instanceof E.FalseIf, function(){})
+            
             return undefined;
-
-        throw e;
+        } catch(_e){
+            throw e;
+        }
     }
 };
 

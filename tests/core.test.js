@@ -49,7 +49,7 @@ describe('Tests', function(){
             b_.else(function(){
                 throw new Error('Fail');
             });
-        }, E.FalseIf);
+        }, Error);
     });
 
     it('Should else work with no return data', function(){
