@@ -1,5 +1,6 @@
 var b_ = require('../index.js'),
-    should = require('should');
+    should = require('should'),
+    E = require('../_exceptions');
 
 function noop(){}
 
@@ -43,12 +44,17 @@ describe('Tests', function(){
         }, function(){ done(); });
     });
 
-    it('Should else should rethrow error', function(){
+    it('Should throw falseIf exception if natural error occured', function(){
         should.throws(function(){
             b_.else(function(){
-                throw new Error('Fail');     
+                throw new Error('Fail');
             });
-        });
+        }, E.FalseIf);
+    });
+
+    it('Should else work with no return data', function(){
+        should(b_.else(function(){})).is.false();
+        should(b_.else(function(){return true})).is.true();
     });
 
     it('Should return value', function(){

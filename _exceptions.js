@@ -4,13 +4,12 @@ function FalseIf(message, fileName, lineNumber){
     return instance;
 }
 FalseIf.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* LCOV_EXCL_START */
+/* istanbul ignore if */
 if (Object.setPrototypeOf){
     Object.setPrototypeOf(FalseIf, Error);
 } else {
     FalseIf.__proto__ = Error;
 }
-/* LCOV_EXCL_STOP */
 
 module.exports.FalseIf = FalseIf;
 
@@ -20,13 +19,14 @@ function TooManyDots(message, fileName, lineNumber){
     return instance;
 }
 TooManyDots.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* LCOV_EXCL_START */
+/* istanbul ignore if */
 if (Object.setPrototypeOf){
     Object.setPrototypeOf(TooManyDots, Error);
-} else {
+} 
+/* istanbul ignore else */
+else {
     TooManyDots.__proto__ = Error;
 }
-/* LCOV_EXCL_STOP */
 
 module.exports.TooManyDots = TooManyDots;
 
@@ -36,12 +36,13 @@ function SwitchDefault(message, fileName, lineNumber){
     return instance;
 }
 SwitchDefault.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* LCOV_EXCL_START */
+/* istanbul ignore if */
 if (Object.setPrototypeOf){
     Object.setPrototypeOf(SwitchDefault, Error);
-} else {
+}
+/* istanbul ignore else */ 
+else {
     SwitchDefault.__proto__ = Error;
 }
-/* LCOV_EXCL_STOP */
 
 module.exports.SwitchDefault = SwitchDefault;
