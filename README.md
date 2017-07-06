@@ -41,7 +41,10 @@ exception only if no statement is found with your value(default case).
 b_.switch( function|value );
 
 //When switch statement isn't known until later
-b_.switch( function|value, defaultCase );
+b_.switch( function|value, callback );
+
+b_.switch( ... )
+    .eval( value, defaultCase );
 ```
 
 ## bLodash Example
