@@ -31,6 +31,19 @@ Evaluates your if expression and catches the false exception and returns undefin
 b_.else( function|boolean, callback );
 ```
 
+#### Native#Switch
+
+Evaluates your switch and catches any exception that may be thrown in your case statements. Throws an 
+exception only if no statement is found with your value(default case).
+
+```
+//Where switched value is known at creation
+b_.switch( function|value );
+
+//When switch statement isn't known until later
+b_.switch( function|value, defaultCase );
+```
+
 ## bLodash Example
 
 Simple if
@@ -63,4 +76,28 @@ b_.else(function() {
 
     cb(b_.true);
 });
+```
+
+Functional Switch:
+```
+    b_.switch('case1')
+        .case('case0', function(){
+            iLoveBlodash();
+            return null; //Equivalent to break
+        })
+        .case('case1', function(){
+            lodashIsRevolutionary();
+            return null;
+        })
+
+```
+
+```
+var _switch = b_.switch();
+
+for(var i = 0; i < 50; i++)
+    _switch.case(i, function(){ console.log(i); });
+
+_switch.eval(5);
+// 5 6 7 8 9 10 11 ...
 ```

@@ -1,6 +1,8 @@
 var b_ = require('./index.js'),
     should = require('should');
 
+function noop(){}
+
 describe('Tests', function(){
 
     it('Should Do If', function(done){
@@ -83,5 +85,78 @@ describe('Tests', function(){
         safeif(false, function(value){
             return value === b_.true ? done() : done(new Error('Incorrect value: '+value))
         });
+    });
+
+    it('Should switch normally', function(done){
+        b_.switch('test', done)
+            .eval('test');
+    });
+
+    it('Should switch normally with inverse', function(done){
+        b_.switch('test')
+            .case('test', done)
+            .eval();
+    });
+
+    it('Should catch any errors in switch', function(){
+        b_.switch('test')
+            .case('test', function(){
+                throw new Error('I fucked up');
+            })
+            .eval();
+    });
+
+    it('Should throw exception if default case', function(){
+        should.throws(function(){
+            b_.switch('default')
+                .case('test', function(){})
+                .eval();
+        });
+    });
+
+    it('Should fallthrough cases', function(done){
+        b_.switch('test')
+            .case('test', noop)
+            .case('fall', done)
+            .eval();
+    });
+
+    it('Should call each case that matches', function(){
+        var count = 0;
+        b_.switch('test')
+            .case('test', function(){
+                ++count;
+                return null;
+            })
+            .case('test', function(){
+                ++count;
+                return null;
+            })
+            .eval();
+
+        should(count).equal(2);
+    });
+
+    it('Should handle default case', function(done){
+        b_.switch('test')
+            .eval(undefined, done);
+    });
+
+    it('Should handle falling through and hitting all cases', function(){
+        var count = 0;
+        b_.switch(0)
+            .case(0, function(){++count;})
+            .case(1, function(){++count; return null})
+            .case(0, function(){++count;})
+            .eval();
+
+        should(count).equal(3);
+    });
+
+    it('Should handle function fallthroughs', function(done){
+        b_.switch(0)
+            .case(0, noop)
+            .case(done)
+            .eval();
     });
 });

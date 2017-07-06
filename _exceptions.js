@@ -25,3 +25,17 @@ if (Object.setPrototypeOf){
 }
 
 module.exports.TooManyDots = TooManyDots;
+
+function SwitchDefault(message, fileName, lineNumber){
+    const instance = new Error(message, fileName, lineNumber);
+    Object.setPrototypeOf(instance, Object.getPrototypeOf(this));
+    return instance;
+}
+SwitchDefault.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
+if (Object.setPrototypeOf){
+    Object.setPrototypeOf(SwitchDefault, Error);
+} else {
+    SwitchDefault.__proto__ = Error;
+}
+
+module.exports.SwitchDefault = SwitchDefault;

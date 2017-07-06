@@ -30,6 +30,67 @@ _.else = function(exec, cb){
     }
 };
 
+var switcher = function(_case, cb){
+    var cases = [];
+    cases.push([_case, cb]);
+
+};
+
+_.switch = function(option, cb){
+    var cases = [];
+
+    var switchedValue = cb == null ? option : null;
+
+    var _switch = {
+        case: addCase,
+        eval: function(result, _default){
+
+            if(switchedValue != null)
+                result = switchedValue;
+            
+            var triggered = false;
+            
+            try {
+                for(var i = 0; i < cases.length; i++)
+                    if(cases[i][0] === result){
+                        for(var j = i; i < cases.length; ++j)
+                            if(cases[j][1]() === null){
+                                triggered = true;
+                                break;
+                            } else 
+                                i = j;          
+                    }
+                
+                if(!triggered || cases.length === 0)
+                    if(_default && typeof _default === 'function')
+                        _default();
+                    else
+                        throw new E.SwitchDefault;
+    
+            } catch(e) {
+                if(e instanceof E.SwitchDefault)
+                    throw e;
+            }
+        }
+    };
+
+    function addCase(o, c){
+        if(typeof o === 'function'){
+            cases.push([undefined, o]);
+            return _switch;
+        }
+        
+        cases.push([o, c]);
+
+        return _switch;
+    }
+
+    if(switchedValue == null)
+        addCase(option, cb);
+
+    return _switch;
+};
+
 var _get = _.get;
 
 _.get = function(obj, key, _default){
