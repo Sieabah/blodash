@@ -4,7 +4,9 @@
   "description": "Lodash didn't blow hard enough",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test.js"
+    "build": "istanbul cover ./node_modules/mocha/bin/_mocha ./tests/*.test.js --report lcovonly -- -R spec",
+    "test": "npm run build",
+    "posttest": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js; rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,12 @@
     "lodash": "^4.17.4"
   },
   "devDependencies": {
+    "glob": "^7.1.2",
     "mocha": "^3.3.0",
-    "should": "^11.2.1"
+    "should": "^11.2.1",
+    "coveralls": "^2.11.15",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-lcov-reporter": "^1.2.0"
   }
 }

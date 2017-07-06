@@ -1,5 +1,8 @@
 # bLodash
 
+[![Build Status](https://travis-ci.org/Sieabah/blodash.svg?branch=master)](https://travis-ci.org/Sieabah/blodash)
+[![We don't lie about our coverage](https://coveralls.io/repos/github/Sieabah/blodash/badge.svg?branch=master)](https://coveralls.io/github/Sieabah/blodash?branch=master)
+
 Why does this library exist? It's *the* satirical edition of the absolutely legendary 
 library that is _[lodash](https://github.com/lodash/lodash)_.
 
