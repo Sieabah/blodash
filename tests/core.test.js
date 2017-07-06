@@ -43,6 +43,14 @@ describe('Tests', function(){
         }, function(){ done(); });
     });
 
+    it('Should else should rethrow error', function(){
+        should.throws(function(){
+            b_.else(function(){
+                throw new Error('Fail');     
+            });
+        });
+    });
+
     it('Should return value', function(){
         var value = b_.if(b_.true, function(){
             return 'value';
