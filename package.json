@@ -1,6 +1,6 @@
 {
   "name": "blodash",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Lodash didn't blow hard enough",
   "main": "index.js",
   "scripts": {
@@ -26,11 +26,10 @@
   },
   "devDependencies": {
     "glob": "^7.1.2",
-    "mocha": "^3.3.0",
+    "mocha": "^3.2.0",
     "should": "^11.2.1",
     "coveralls": "^2.11.15",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
     "mocha-lcov-reporter": "^1.2.0"
   }
 }
