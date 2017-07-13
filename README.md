@@ -85,6 +85,8 @@ b_.else(function() {
 ```
 
 Functional Switch:
+
+Never have to worry about native switch again
 ```
     b_.switch('case1')
         .case('case0', function(){
@@ -94,7 +96,7 @@ Functional Switch:
         .case('case1', function(){
             lodashIsRevolutionary();
             return null;
-        })
+        });
 
 ```
 
@@ -106,4 +108,29 @@ for(var i = 0; i < 50; i++)
 
 _switch.eval(5);
 // 5 6 7 8 9 10 11 ...
+```
+
+Try/Catch:
+
+Never guess about what error is thrown again
+```
+    b_.try(function(){
+        this.object.does.not.work
+    })
+        .catch(ReferenceError, function(){
+            return true;
+        })
+        .catch(Error, function(){
+            return null
+        });
+
+    try {
+        this.object.does.not.work
+    } catch(e) {
+        if(e instanceof ReferenceError){
+            return true;
+        } else {
+            return null;
+        }
+    }
 ```
