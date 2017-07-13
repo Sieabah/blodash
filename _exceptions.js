@@ -4,12 +4,7 @@ function FalseIf(message, fileName, lineNumber){
     return instance;
 }
 FalseIf.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* istanbul ignore if */
-if (Object.setPrototypeOf){
-    Object.setPrototypeOf(FalseIf, Error);
-} else {
-    FalseIf.__proto__ = Error;
-}
+Object.setPrototypeOf(FalseIf, Error);
 
 module.exports.FalseIf = FalseIf;
 
@@ -19,14 +14,7 @@ function TooManyDots(message, fileName, lineNumber){
     return instance;
 }
 TooManyDots.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* istanbul ignore if */
-if (Object.setPrototypeOf){
-    Object.setPrototypeOf(TooManyDots, Error);
-} 
-/* istanbul ignore else */
-else {
-    TooManyDots.__proto__ = Error;
-}
+Object.setPrototypeOf(TooManyDots, Error);
 
 module.exports.TooManyDots = TooManyDots;
 
@@ -36,13 +24,6 @@ function SwitchDefault(message, fileName, lineNumber){
     return instance;
 }
 SwitchDefault.prototype = Object.create(Error.prototype, {constructor: {value: Error,enumerable: false,writable: true,configurable: true}});
-/* istanbul ignore if */
-if (Object.setPrototypeOf){
-    Object.setPrototypeOf(SwitchDefault, Error);
-}
-/* istanbul ignore else */ 
-else {
-    SwitchDefault.__proto__ = Error;
-}
+Object.setPrototypeOf(SwitchDefault, Error);
 
 module.exports.SwitchDefault = SwitchDefault;

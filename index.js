@@ -92,5 +92,30 @@ _.get = function(obj, key, _default){
     return _get(obj, key, _default);
 };
 
+_.try = function(tryFunc){
+    var types = [];
+
+    var exec = function(){
+        try {
+            return tryFunc();
+        } catch(e){
+            for(var type in types)
+                if(e instanceof types[type].err)
+                    return types[type].handler(e);
+
+            throw e;
+        }
+    }
+    var _catch = {
+        catch: function(err, handler){
+            types.push({ err: err, handler: handler});
+            return _catch;
+        },
+        exec: exec
+    }
+
+    return _catch;
+}
+
 module.exports = _;
 module.exports.E = E;
