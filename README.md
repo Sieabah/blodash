@@ -6,6 +6,8 @@
 Why does this library exist? It's *the* satirical edition of the absolutely legendary 
 library that is _[lodash](https://github.com/lodash/lodash)_.
 
+![the one true god](worshipdalton.gif)
+
 Using blodash allows you to liberate your code from nasty issues with using any sort of
 native features and tries to take all of the guesswork out of whether something truly
 exists or not. To put it simply, it's the last and only library you will ever need from
@@ -48,6 +50,18 @@ b_.switch( function|value, callback );
 
 b_.switch( ... )
     .eval( value, defaultCase );
+```
+
+#### Native#TryCatch
+
+```
+    b_.try(function(){
+        throw new Error()
+    })
+        .catch(Error, function(){
+            return true;
+        })
+        .exec();
 ```
 
 ## bLodash Example
@@ -122,7 +136,8 @@ Never guess about what error is thrown again
         })
         .catch(Error, function(){
             return null
-        });
+        })
+        .exec();
 
     try {
         this.object.does.not.work
