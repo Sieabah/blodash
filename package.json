@@ -1,6 +1,6 @@
 {
   "name": "blodash",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Lodash didn't blow hard enough",
   "main": "index.js",
   "scripts": {
