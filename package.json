@@ -21,7 +21,7 @@
     "url": "https://github.com/Sieabah/blodash/issues"
   },
   "homepage": "https://github.com/Sieabah/blodash#readme",
-  "dependencies": {
+  "peerDependencies": {
     "lodash": "^4.17.4"
   },
   "devDependencies": {
